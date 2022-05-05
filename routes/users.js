@@ -8,7 +8,8 @@ var axios = require('axios');
 router.post('/login',async function(req,res){
 
   if(!req.body|| !req.body.email){
-    res.status(400).json({message:"invalid email"})
+      console.log("here got the request", req.body)
+    return res.status(400).json({message:"invalid email"})
   }
   const email = req.body.email
   try{
@@ -24,16 +25,16 @@ router.post('/login',async function(req,res){
 
   });
   console.log("received response", response.data);
-  res.status(200).json({message:"successfully sent the request"});
+  return res.status(200).json({message:"successfully sent the request"});
   } catch (error){
 
     console.log("error happened while connecting to auth0", error);
-    res.status(500).json({error:error})
+    return res.status(500).json({error:error})
   }
 })
 router.post('/otp', async function(req,res){
     if(!req.body || !req.body.email || !req.body.otp){
-        res.status(400).json({message:"invalid otp"})
+        return res.status(400).json({message:"invalid otp"})
 
     }
     const {otp, email} = req.body;
